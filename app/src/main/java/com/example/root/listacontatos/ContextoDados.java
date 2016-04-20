@@ -13,7 +13,7 @@ import android.util.Log;
 import android.widget.EditText;
 
 /**
- * Created by root on 19/04/16.
+ * Created by bhborges on 19/04/16.
  */
 public class ContextoDados extends SQLiteOpenHelper {
 

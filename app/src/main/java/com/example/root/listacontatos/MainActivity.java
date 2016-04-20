@@ -138,15 +138,10 @@ public class MainActivity extends AppCompatActivity {
          itemsAdapter.notifyDataSetChanged();
      }
      cursor.close();
-}
+    }
 
 
      //Toast.makeText(MainActivity.this ,cursor.toString(), Toast.LENGTH_LONG).show();
-
-
-
-
-
 
 
 /*
