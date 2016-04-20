@@ -47,12 +47,12 @@ public class MainActivity extends AppCompatActivity {
         txtTelefone = (EditText) findViewById(R.id.txtPhone);
 
         LayoutInflater li = getLayoutInflater();
-        View view = li.inflate(R.layout.alerta, null);
+        final View view = li.inflate(R.layout.alerta, null);
 
 
           view.findViewById(R.id.btnSalvar).setOnClickListener(new View.OnClickListener() { public void onClick(View arg0) {
 
-               SalvaContato();
+               SalvaContato(view);
                Toast.makeText(MainActivity.this, "Contato salvo com sucesso", Toast.LENGTH_SHORT).show();
                alerta.dismiss();
             }
@@ -91,9 +91,17 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+<<<<<<< HEAD
     public void SalvaContato(){
 
         Toast.makeText(MainActivity.this, this.txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+=======
+    public void SalvaContato(View view){
+        setContentView(R.layout.content_main);
+        txtNome = (EditText) view.findViewById(R.id.txtName);
+        txtTelefone = (EditText) view.findViewById(R.id.txtPhone);
+        Toast.makeText(MainActivity.this, txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+>>>>>>> 7283e96f8ef42dcaa807f71e690a7a8ab6463ce8
 
         //ContextoDados db  = new ContextoDados(this);
        // db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
