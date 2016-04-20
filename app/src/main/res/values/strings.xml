@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Lista Contatos</string>
     <string name="action_settings">Settings</string>
+    <string name="title_list">Contatos</string>
+    <string name="salvar">Salvar</string>
+    <string name="contact">Contato</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
 </resources>
