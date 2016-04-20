@@ -12,12 +12,16 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSalvar;
@@ -104,24 +108,46 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public  void CarregarLista(Context c){
+
+        ArrayList<String> items = new ArrayList<String>();
+
         ContextoDados db = new ContextoDados(c);
         ContextoDados.ContatosCursor cursor = db.RetornarContatos(ContextoDados.ContatosCursor.OrdenarPor.NomeCrescente);
 
         for( int i=0; i <cursor.getCount(); i++)
         {
             cursor.moveToPosition(i);
-            MostraLista(cursor);
+            items.add(cursor.getString(1));
+            MostraLista(cursor, items);
         }
     }
- public void MostraLista(Cursor cursor){
-
+ public void MostraLista(Cursor cursor, ArrayList items){
      ListView ls = (ListView) findViewById(R.id.listView);
+     ArrayAdapter<String> itemsAdapter = null;
 
 
-         ls.setAdapter((ListAdapter) cursor);
+
+     if (itemsAdapter == null) {
+         itemsAdapter = new ArrayAdapter<String>(this,
+                 android.R.layout.simple_list_item_1,
+                 items);
+         ls.setAdapter(itemsAdapter);
+     } else {
+         itemsAdapter.clear();
+         itemsAdapter.addAll(items);
+         itemsAdapter.notifyDataSetChanged();
+     }
+     cursor.close();
+}
 
 
- }
+     //Toast.makeText(MainActivity.this ,cursor.toString(), Toast.LENGTH_LONG).show();
+
+
+
+
+
+
 
 /*
     @Override
