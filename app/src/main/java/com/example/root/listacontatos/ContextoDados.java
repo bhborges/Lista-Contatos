@@ -69,15 +69,10 @@ public class ContextoDados extends SQLiteOpenHelper {
             db.endTransaction();
         }
 
-        // Isto é apenas didático. Na vida real, você terá de adicionar novas colunas e não apenas recriar o mesmo banco
         onCreate(db);
     }
 
-            /**
-             * Executa todos os comandos SQL passados no vetor String[]
-             * @param db A base de dados onde os comandos serão executados
-             * @param sql Um vetor de comandos SQL a serem executados
-             */
+
     private void ExecutarComandosSQL(SQLiteDatabase db, String[] sql)
     {
         for( String s : sql )

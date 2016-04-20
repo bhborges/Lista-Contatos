@@ -11,10 +11,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
@@ -24,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private AlertDialog alerta;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -90,10 +92,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void SalvaContato(){
-        setContentView(R.layout.content_main);
-        txtNome = (EditText) findViewById(R.id.txtName);
-        txtTelefone = (EditText) findViewById(R.id.txtPhone);
-        Toast.makeText(MainActivity.this, txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        Toast.makeText(MainActivity.this, this.txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
 
         //ContextoDados db  = new ContextoDados(this);
        // db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
@@ -121,6 +121,16 @@ public class MainActivity extends AppCompatActivity {
 
 
  }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
+        // Usar o v
+        TextView tv = (TextView) v;
+
+        // Buscar alguma view dentro deste item
+        TextView tv2 = v.findViewById(R.id.showN);
+    }
 
 }
 
