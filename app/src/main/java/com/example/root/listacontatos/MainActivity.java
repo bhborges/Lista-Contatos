@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -12,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -141,12 +143,34 @@ public class MainActivity extends AppCompatActivity {
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Fragment fragment = new Fragment();
+                TextView showName = (TextView) findViewById(R.id.showName);
+                TextView showPhone = (TextView) findViewById(R.id.showPhone);
+
+
+
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
 
                 String[] pieces = name.split(":");
+                showName.setText(pieces[0].toString());
+                showPhone.setText(pieces[1].toString());
 
-                Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
+                fragment = null;
+
+
+                fragment = new ContatoFrame();
+                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.containerContact, fragment);
+                fragmentTransaction.commit();
+
+
+
+                //Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
+
+
+
             }
         });
     }
