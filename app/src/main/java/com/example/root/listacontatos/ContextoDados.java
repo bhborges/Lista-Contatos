@@ -87,7 +87,6 @@ public class ContextoDados extends SQLiteOpenHelper {
         String sql = ContatosCursor.CONSULTA + (ordenarPor == ContatosCursor.OrdenarPor.NomeCrescente ? "ASC" : "DESC");
         SQLiteDatabase bd = getReadableDatabase();
         ContatosCursor cc = (ContatosCursor) bd.rawQueryWithFactory(new ContatosCursor.Factory(), sql, null, null);
-        String nome;
         if (cc != null && !cc.isClosed()) {
             cc.moveToFirst();
         }

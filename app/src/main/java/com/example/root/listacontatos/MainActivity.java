@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
@@ -112,7 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
-            items.add(cursor.getString(1));
+            String contato = cursor.getString(1)+ ":"+ cursor.getString(2);
+            items.add(contato);
             MostraLista(cursor, items);
         }
         cursor.close();
@@ -122,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
         ListView ls = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> itemsAdapter = null;
 
+        ArrayList<String> item = new ArrayList<String>();
+        String nome;
 
         if (itemsAdapter == null) {
             itemsAdapter = new ArrayAdapter<String>(this,
@@ -140,8 +144,9 @@ public class MainActivity extends AppCompatActivity {
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
 
+                String[] pieces = name.split(":");
 
-                // Toast.makeText(MainActivity.this, name, Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
             }
         });
     }
