@@ -90,23 +90,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-<<<<<<< HEAD
-    public void SalvaContato(){
-
-        Toast.makeText(MainActivity.this, this.txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
-=======
     public void SalvaContato(View view){
-        setContentView(R.layout.content_main);
+        //setContentView(R.layout.content_main);
         txtNome = (EditText) view.findViewById(R.id.txtName);
         txtTelefone = (EditText) view.findViewById(R.id.txtPhone);
-        Toast.makeText(MainActivity.this, txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
->>>>>>> 7283e96f8ef42dcaa807f71e690a7a8ab6463ce8
+        //Toast.makeText(MainActivity.this, txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
 
-        //ContextoDados db  = new ContextoDados(this);
-       // db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
-       // setContentView(R.layout.content_main);
-       // CarregarLista(this);
+
+        ContextoDados db  = new ContextoDados(this);
+        db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
+        CarregarLista(this);
 
     }
 
@@ -130,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
 
  }
 
-
+/*
     @Override
     public void onItemClick(AdapterView<?> a, View v, int position, long id) {
         // Usar o v
@@ -139,6 +132,6 @@ public class MainActivity extends AppCompatActivity {
         // Buscar alguma view dentro deste item
         TextView tv2 = v.findViewById(R.id.showN);
     }
-
+*/
 }
 
