@@ -10,42 +10,81 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.database.sqlite.SQLiteQuery;
 import android.util.Log;
+import android.widget.EditText;
 
 /**
  * Created by root on 19/04/16.
  */
-public class BaseDAO extends SQLiteOpenHelper {
+public class ContextoDados extends SQLiteOpenHelper {
+
+    private static final String NOME_BD = "Agenda";
+    private static final int VERSAO_BD = 2;
+    private static final String LOG_TAG = "Agenda";
+    private final Context contexto;
+    public ContextoDados(Context context) {
+        super(context, NOME_BD, null, VERSAO_BD);
+        this.contexto = context;
+    }
 
 
+    @Override
+    public void onCreate(SQLiteDatabase db)
+    {
+        String[] sql = contexto.getString(R.string.ContextoDados_onCreate).split("\n");
+        db.beginTransaction();
 
-    public static final String TBL_AGENDA = "agenda";
-    public static final String AGENDA_ID = "_id";
-    public static final String AGENDA_NOME = "nome";
-    public static final String AGENDA_TELEFONE = "telefone";
-
-    private static final String DATABASE_NAME = "agenda.db";
-    private static final int DATABASE_VERSION = 2;
-
-    //Estrutura da tabela Agenda (sql statement)
-    private static final String CREATE_AGENDA = "create table " +
-            TBL_AGENDA + "( " + AGENDA_ID       + " integer primary key autoincrement, " +
-            AGENDA_NOME     + " text not null, " +
-            AGENDA_TELEFONE + " text not null);";
-
-    public BaseDAO(Context context) {
-        super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        try
+        {
+            ExecutarComandosSQL(db, sql);
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e)
+        {
+            Log.e("Erro ao criar tabela", e.toString());
+        }
+        finally
+        {
+            db.endTransaction();
+        }
     }
 
     @Override
-    public void onCreate(SQLiteDatabase database) {
-        database.execSQL(CREATE_AGENDA);
-    }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion)
+    {
+        Log.w(LOG_TAG, "Atualizando a base de dados da versão " + oldVersion + " para " + newVersion + ", que destruirá todos os dados antigos");
+        String[] sql = contexto.getString(R.string.ContextoDados_onUpdate).split("\n");
+        db.beginTransaction();
+        try
+        {
+            ExecutarComandosSQL(db, sql);
+            db.setTransactionSuccessful();
+        }
+        catch (SQLException e)
+        {
+            Log.e("Erro ao atualiz tabela", e.toString());
+            throw e;
+        }
+        finally
+        {
+            db.endTransaction();
+        }
 
-    @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_AGENDA);
+        // Isto é apenas didático. Na vida real, você terá de adicionar novas colunas e não apenas recriar o mesmo banco
         onCreate(db);
     }
+
+            /**
+             * Executa todos os comandos SQL passados no vetor String[]
+             * @param db A base de dados onde os comandos serão executados
+             * @param sql Um vetor de comandos SQL a serem executados
+             */
+    private void ExecutarComandosSQL(SQLiteDatabase db, String[] sql)
+    {
+        for( String s : sql )
+        if (s.trim().length()>0)
+        db.execSQL(s);
+    }
+
 
 
     public ContatosCursor RetornarContatos(ContatosCursor.OrdenarPor ordenarPor)

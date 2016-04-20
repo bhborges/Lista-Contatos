@@ -18,7 +18,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-    Button btnSalvar, btnCancelar, btnNovo;
+    Button btnSalvar;
     EditText txtNome, txtTelefone;
 
     private AlertDialog alerta;
@@ -30,40 +30,38 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-
-
-        LayoutInflater li = getLayoutInflater();
-        View view = li.inflate(R.layout.alerta, null);
-
-
-
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AbrirW();
+               AbrirW();
             }
         });
 
     }
 
     public void AbrirW(){
+        txtNome = (EditText) findViewById(R.id.txtName);
+        txtTelefone = (EditText) findViewById(R.id.txtPhone);
+
         LayoutInflater li = getLayoutInflater();
         View view = li.inflate(R.layout.alerta, null);
-        Button btnSalvar = (Button) findViewById(R.id.btnSalvar);
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "alerta.dismiss()", Toast.LENGTH_SHORT).show();
-                alerta.dismiss();
+
+
+          view.findViewById(R.id.btnSalvar).setOnClickListener(new View.OnClickListener() { public void onClick(View arg0) {
+
+               SalvaContato();
+               Toast.makeText(MainActivity.this, "Contato salvo com sucesso", Toast.LENGTH_SHORT).show();
+               alerta.dismiss();
             }
         });
+
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Novo Contato");
         builder.setView(view);
         alerta = builder.create();
         alerta.show();
-        CarregaContato();
+
 
     }
 
@@ -89,30 +87,24 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void CarregaContato(){
-        txtNome = (EditText) findViewById(R.id.txtName);
-        txtTelefone = (EditText) findViewById(R.id.txtPhone);
-        btnSalvar = (Button) findViewById(R.id.btnSalvar);
 
-        btnSalvar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                SalvaContato();
-            }
-        });
-    }
 
     public void SalvaContato(){
-        BaseDAO db  = new BaseDAO(this);
-        db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
         setContentView(R.layout.content_main);
-        CarregarLista(this);
+        txtNome = (EditText) findViewById(R.id.txtName);
+        txtTelefone = (EditText) findViewById(R.id.txtPhone);
+        Toast.makeText(MainActivity.this, txtNome.getText().toString(), Toast.LENGTH_SHORT).show();
+
+        //ContextoDados db  = new ContextoDados(this);
+       // db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
+       // setContentView(R.layout.content_main);
+       // CarregarLista(this);
 
     }
 
     public  void CarregarLista(Context c){
-        BaseDAO db = new BaseDAO(c);
-        BaseDAO.ContatosCursor cursor = db.RetornarContatos(BaseDAO.ContatosCursor.OrdenarPor.NomeCrescente);
+        ContextoDados db = new ContextoDados(c);
+        ContextoDados.ContatosCursor cursor = db.RetornarContatos(ContextoDados.ContatosCursor.OrdenarPor.NomeCrescente);
 
         for( int i=0; i <cursor.getCount(); i++)
         {

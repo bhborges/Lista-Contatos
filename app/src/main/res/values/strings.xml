@@ -5,5 +5,10 @@
     <string name="salvar">Salvar</string>
     <string name="contact">Contato</string>
 
+
+    <!--Database-->
+    <string name="ContextoDados_onCreate"> CREATE TABLE Contatos (ID INTEGER PRIMARY KEY AUTOINCDREMENT, Nome TEXT, Telefone TEXT); </string>
+    <string name="ContextoDados_onUpdate"> CREATE TABLE Contatos (ID INTEGER PRIMARY KEY AUTOINCDREMENT, Nome TEXT, Telefone TEXT); </string>
+
     <!-- TODO: Remove or change this placeholder text -->
 </resources>
