@@ -102,7 +102,6 @@ public class MainActivity extends AppCompatActivity {
         ContextoDados db = new ContextoDados(this);
         db.InserirContato(txtNome.getText().toString(), txtTelefone.getText().toString());
         CarregarLista(this);
-
     }
 
     public void CarregarLista(Context c) {
@@ -142,7 +141,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 // Toast.makeText(MainActivity.this, name, Toast.LENGTH_SHORT).show();
-
             }
         });
     }
