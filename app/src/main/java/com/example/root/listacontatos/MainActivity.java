@@ -117,40 +117,11 @@ public class MainActivity extends AppCompatActivity {
         }
         cursor.close();
     }
-<<<<<<< HEAD
- public void MostraLista(Cursor cursor, ArrayList items){
-     ListView ls = (ListView) findViewById(R.id.listView);
-     ArrayAdapter<String> itemsAdapter = null;
-
-
-
-     if (itemsAdapter == null) {
-         itemsAdapter = new ArrayAdapter<String>(this,
-                 android.R.layout.simple_list_item_1,
-                 items);
-         ls.setAdapter(itemsAdapter);
-     } else {
-         itemsAdapter.clear();
-         itemsAdapter.addAll(items);
-         itemsAdapter.notifyDataSetChanged();
-     }
-     cursor.close();
-    }
-
-
-     //Toast.makeText(MainActivity.this ,cursor.toString(), Toast.LENGTH_LONG).show();
-
-
-/*
-    @Override
-    public void onItemClick(AdapterView<?> a, View v, int position, long id) {
-        // Usar o v
-        TextView tv = (TextView) v;
-=======
 
     public void MostraLista(Cursor cursor, ArrayList items) {
         ListView ls = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> itemsAdapter = null;
+
 
         if (itemsAdapter == null) {
             itemsAdapter = new ArrayAdapter<String>(this,
@@ -171,11 +142,6 @@ public class MainActivity extends AppCompatActivity {
 
 
                 // Toast.makeText(MainActivity.this, name, Toast.LENGTH_SHORT).show();
-<<<<<<< HEAD
-=======
->>>>>>> 46d1e55a4835921f8deb4fd305181a2c784cc9a7
-
->>>>>>> fad8b387be8ece565c6f37bd125c95d531d7f336
             }
         });
     }
