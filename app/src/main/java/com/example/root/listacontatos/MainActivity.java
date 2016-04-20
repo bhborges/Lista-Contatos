@@ -124,8 +124,13 @@ public class MainActivity extends AppCompatActivity {
         ListView ls = (ListView) findViewById(R.id.listView);
         ArrayAdapter<String> itemsAdapter = null;
 
-        ArrayList<String> item = new ArrayList<String>();
+
         String nome;
+
+        for (String item : items) {
+            String[] piece = item.split(":");
+        }
+
 
         if (itemsAdapter == null) {
             itemsAdapter = new ArrayAdapter<String>(this,
