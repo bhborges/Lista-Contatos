@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
         for (int i = 0; i < cursor.getCount(); i++) {
             cursor.moveToPosition(i);
-            String contato = cursor.getString(1)+ ":"+ cursor.getString(2);
+            String contato = cursor.getString(1) + ":" + cursor.getString(2);
             items.add(contato);
             MostraLista(cursor, items);
         }
@@ -128,11 +128,6 @@ public class MainActivity extends AppCompatActivity {
 
 
         String nome;
-
-        for (String item : items) {
-            String[] piece = item.split(":");
-        }
-
 
         if (itemsAdapter == null) {
             itemsAdapter = new ArrayAdapter<String>(this,
@@ -148,33 +143,36 @@ public class MainActivity extends AppCompatActivity {
         ls.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Fragment fragment = new Fragment();
-                TextView showName = (TextView) findViewById(R.id.showName);
-                TextView showPhone = (TextView) findViewById(R.id.showPhone);
-
+//                Fragment fragment = new Fragment();
+//                TextView showName = (TextView) fragment.findViewById(R.id.showName);
+//                TextView showPhone = (TextView) fragment.findViewById(R.id.showPhone);
 
 
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
 
                 String[] pieces = name.split(":");
-                showName.setText(pieces[0].toString());
-                showPhone.setText(pieces[1].toString());
+//                showName.setText(pieces[0].toString());
+//                showPhone.setText(pieces[1].toString());
+//
+//                fragment = null
 
-                fragment = null;
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+                builder.setMessage(pieces[1])
+                        .setTitle(pieces[0]);
+                AlertDialog alert = builder.create();
+                alert.show();
 
 
-                fragment = new ContatoFrame();
-                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.containerContact, fragment);
-                fragmentTransaction.commit();
-
+//                fragment = new ContatoFrame();
+//                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+//                android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//                fragmentTransaction.replace(R.id.containerContact, fragment);
+//                fragmentTransaction.commit();
 
 
                 //Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
-
-
 
             }
         });
