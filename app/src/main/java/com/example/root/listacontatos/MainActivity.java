@@ -1,7 +1,10 @@
 package com.example.root.listacontatos;
 
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -28,7 +31,10 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
     Button btnSalvar;
+
     EditText txtNome, txtTelefone;
+
+
 
     private AlertDialog alerta;
 
@@ -39,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         });
 
         CarregarLista(this);
+
+
 
     }
 
@@ -90,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+        if (id == R.id.action_apagarTudo) {
+            ApagarTudo(this);
         }
 
         return super.onOptionsItemSelected(item);
@@ -150,20 +158,31 @@ public class MainActivity extends AppCompatActivity {
 
                 TextView textView = (TextView) view.findViewById(android.R.id.text1);
                 String name = textView.getText().toString();
+                //Toast.makeText(MainActivity.this, name, Toast.LENGTH_SHORT).show();
 
-                String[] pieces = name.split(":");
+                final String[] pieces = name.split(":");
+
+                //Toast.makeText(MainActivity.this, pieces[0], Toast.LENGTH_SHORT).show();
 //                showName.setText(pieces[0].toString());
 //                showPhone.setText(pieces[1].toString());
 //
 //                fragment = null
 
+               // Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
+               // Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
+
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
                 builder.setMessage(pieces[1])
-                        .setTitle(pieces[0]);
+                        .setTitle(pieces[0])
+                        .setPositiveButton("Ligar", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                startActivity(new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + pieces[1])));
+                            }
+                        });
                 AlertDialog alert = builder.create();
                 alert.show();
-
 
 //                fragment = new ContatoFrame();
 //                android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
@@ -171,11 +190,15 @@ public class MainActivity extends AppCompatActivity {
 //                fragmentTransaction.replace(R.id.containerContact, fragment);
 //                fragmentTransaction.commit();
 
-
-                //Toast.makeText(MainActivity.this, pieces[1], Toast.LENGTH_SHORT).show();
-
             }
         });
     }
+
+    public void ApagarTudo(Context c) {
+        ContextoDados db = new ContextoDados(c);
+        db.ApagarTudo();
+        CarregarLista(this);
+    }
+
 }
 

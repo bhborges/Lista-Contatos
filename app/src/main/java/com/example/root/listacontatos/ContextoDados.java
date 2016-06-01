@@ -148,6 +148,17 @@ public class ContextoDados extends SQLiteOpenHelper {
             return getString(getColumnIndexOrThrow("Telefone"));
         }
     }
+
+    public void ApagarTudo(){
+        SQLiteDatabase db = getWritableDatabase();
+
+        onOpen(db);
+
+        db.execSQL("DELETE FROM Contatos");
+
+        db.close();
+    }
+
 }
 
 
